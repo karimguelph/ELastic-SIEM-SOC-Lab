@@ -177,6 +177,14 @@ hydra -l username -P /usr/share/wordlists/rockyou.txt -t 1 -w 3 ssh://127.0.0.1
 - `-w 3`: Waits 3 seconds between attempts to reduce server load.
 - `ssh://127.0.0.1`: Targets the SSH service on localhost.
 
+then used sudo systemctl status elastic-agent.service to make sure it’s running still
+![image](https://github.com/user-attachments/assets/c17e3ad8-f262-4368-b32e-cf51c673f87b)
+![image](https://github.com/user-attachments/assets/ac37e714-3b1f-4fbb-8bda-6c63174d7212)
+Now doing the same thing here to avoid a mistake and seeing what is recognized here and we see that process.args is hydra: 
+![image](https://github.com/user-attachments/assets/483f27aa-62f2-4a41-b1b9-3daa0d980741)
+![image](https://github.com/user-attachments/assets/09e22418-17f9-41ed-8253-c071fee57c4a)
+
+
 ---
 
 #### Creating Hydra Detection Rule
@@ -191,11 +199,14 @@ process.name: "hydra" AND (process.args: "ssh://127.0.0.1" OR process.command_li
 ```
 - Ensures the detection rule matches events where Hydra is the process name.
 - Matches commands targeting SSH on localhost and adds flexibility to detect additional Hydra commands.
+![image](https://github.com/user-attachments/assets/b2ba6a41-8a2f-40bd-b850-c6740af7568a)
 
 **Rule Name and Description:**
 - **Name:** `hydra ssh bruteforce`
 - **Description:** Detects Hydra activity targeting SSH on localhost.
+![image](https://github.com/user-attachments/assets/5780b26b-268a-4509-a657-fe1a244293fc)
 
+And this time I will use a webhook instead 
 **Webhook Configuration:**
 - **Authentication:** None (Webhook.site doesn’t require authentication for free-tier URLs).
 - **Body:**
@@ -220,6 +231,8 @@ process.name: "hydra" AND (process.args: "ssh://127.0.0.1" OR process.command_li
 }
 ```
 
+![image](https://github.com/user-attachments/assets/9f30c801-c70c-4743-9c31-eb4f69e463b6)
+
 ---
 
 #### Testing the Hydra Rule
@@ -228,19 +241,25 @@ process.name: "hydra" AND (process.args: "ssh://127.0.0.1" OR process.command_li
   - Process name: `hydra`.
   - Arguments targeting SSH on localhost.
 
----
+---![image](https://github.com/user-attachments/assets/484e798a-a1af-401e-b978-fc6c265f8575)
+![image](https://github.com/user-attachments/assets/bf62d9cb-5d05-4294-8fb9-d9b03c230eec)
+and our alert here has detected the hydra ssh bruteforce so our detection rule has worked 
+![image](https://github.com/user-attachments/assets/b6f14a21-2490-4053-9037-b65f17b9510e)
+Here we have the alerts page, severity levels (I should change the hydra to not be low, but right now all 110 alerts are low due to them being the nmap and hydra being set to low) and alerts by name are shown and top alerts (100%) are by the host.name kali
 
 #### Alerts and Severity Levels
 
 - Initially, both Nmap and Hydra rules were set to low severity. After testing, the Hydra rule was updated to:
   - **Severity:** Medium
   - **Risk Score:** 47
+![image](https://github.com/user-attachments/assets/c1d4fae0-a20b-4af0-b580-7f56066b7d72)
 
 ---
 
 #### Execution Logs
 
 - The execution log shows successful statuses for both manual and scheduled executions of the Hydra SSH brute-force rule. This verifies the detection and alerting functionality.
+![image](https://github.com/user-attachments/assets/c372fea3-c518-49f3-b859-78998d22f623)
 
 ---
 
@@ -250,6 +269,5 @@ With these setups, the Elastic Stack was effectively used to:
 - Detect and respond to Nmap scans and Hydra brute-force attacks.
 - Automate incident response by sending alerts to email and webhooks.
 
-This demonstrates practical SOC analyst skills and the ability to create actionable detections in a real-world environment.
-
+Now we have successfully also included incident response skills, not just SOC analyst skills, with the addition of detecting and creating an alert for hydra’s ssh password bruteforce and responding by sending an alert to the webhook. 
 
