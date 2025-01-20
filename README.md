@@ -253,7 +253,7 @@ Here we have the alerts page, severity levels (I should change the hydra to not 
   - **Severity:** Medium
   - **Risk Score:** 47
 ![image](https://github.com/user-attachments/assets/c1d4fae0-a20b-4af0-b580-7f56066b7d72)
-
+However, realistically, I would change this severity to high since it means there is an active attack.
 ---
 
 #### Execution Logs
