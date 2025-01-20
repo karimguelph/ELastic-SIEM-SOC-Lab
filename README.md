@@ -1,6 +1,4 @@
-### elastic-soc-lab
-
-#### Introduction 
+### Introduction 
 
 I’ve created this project to demonstrate how the Elastic Stack and Kibana can be used to detect and respond to real-world security events, focusing on tools like Nmap and Hydra. This lab covers the full process—from setting up the Elastic Agent on a Kali Linux VMware image to creating custom detection rules, new Kibana visualizations, and automated alerts sent to email and webhooks. Along the way, I explored debugging detection issues, refining rules for better accuracy, and extending capabilities to include brute-force attack detection alongside Nmap scans. This project showcases how Elastic Stack is a powerful tool for monitoring, detection, and automation in cybersecurity workflows, combining SOC analyst and incident response skills.
 
