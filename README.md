@@ -1,5 +1,3 @@
-![image](https://github.com/user-attachments/assets/9f38c591-7987-4ded-a90f-b36516662434)![image](https://github.com/user-attachments/assets/712f5314-e4bb-4256-99c6-a9275043d260)# elastic-soc-lab
-
 ### elastic-soc-lab
 
 #### Adding Integrations
